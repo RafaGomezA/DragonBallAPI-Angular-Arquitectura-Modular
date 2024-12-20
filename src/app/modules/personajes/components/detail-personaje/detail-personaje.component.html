@@ -1,0 +1,44 @@
+<div class="container mt-5" *ngIf="personaje; else loading">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header text-center">
+            <h2>{{ personaje.name }}</h2>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <!-- Imagen del personaje -->
+              <div class="col-md-4 text-center">
+                <img [src]="personaje.image" [alt]="personaje.name" class="img-fluid rounded" style="max-height: 300px;">
+              </div>
+              <!-- Detalles del personaje -->
+              <div class="col-md-8">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><strong>Descripción:</strong> {{ personaje.description }}</li>
+                  <li class="list-group-item"><strong>Raza:</strong> {{ personaje.race }}</li>
+                  <li class="list-group-item"><strong>Género:</strong> {{ personaje.gender }}</li>
+                  <li class="list-group-item"><strong>Afiliación:</strong> {{ personaje.affiliation }}</li>
+                  <li class="list-group-item"><strong>Ki Máximo:</strong> {{ personaje.maxKi }}</li>
+                  <li class="list-group-item"><strong>Ki Actual:</strong> {{ personaje.ki }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Footer de la tarjeta -->
+          <div class="card-footer text-center">
+            <a routerLink="/personajesList" class="btn btn-primary">Volver a la Lista</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #loading>
+    <div class="text-center">
+      <p>Cargando personaje...</p>
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+  

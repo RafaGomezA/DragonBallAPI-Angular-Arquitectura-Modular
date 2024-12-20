@@ -1,0 +1,6 @@
+.fixed-image {
+    width: 100%; /* Ocupa el ancho del contenedor */
+    height: 300px; /* Altura fija para uniformidad */
+    object-fit: contain; /* Escala la imagen proporcionalmente para que encaje */
+    background-color: #f8f9fa; /* Fondo gris claro para imágenes más pequeñas */
+  }

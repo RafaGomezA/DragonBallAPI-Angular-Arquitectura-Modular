@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { Item } from 'src/app/core/IPersonaje.model';
 
 @Component({
   selector: 'app-personaje-card',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonajeCardComponent implements OnInit {
 
-  constructor() { }
+  @Input() personaje!: Item;
+
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    
+  }
+
+  onDetailPersonaje() {
+    this.router.navigate(['detail', this.personaje.id]);
   }
 
 }
