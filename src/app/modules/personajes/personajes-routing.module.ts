@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PersonajesListComponent } from './pages/personajes-list/personajes-list.component';
-import { DetailPersonajeComponent } from './components/detail-personaje/detail-personaje.component';
+import { DetailPersonajeComponent } from './pages/detail-personaje/detail-personaje.component';
 
 const routes: Routes = [
-    { path: '', component: PersonajesListComponent },
-    { path: 'detail/:id', component: DetailPersonajeComponent },
-    
-   
-  ];
+  { path: '', component: PersonajesListComponent },
+  { path: 'detail/:id', component: DetailPersonajeComponent },
+  { path: 'personajeSearch/:name', component: PersonajesListComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class PersonajesRoutingModule { }
+export class PersonajesRoutingModule {}
 
 /*Este archivo contiene las rutas específicas para el módulo PersonajesModule.
 

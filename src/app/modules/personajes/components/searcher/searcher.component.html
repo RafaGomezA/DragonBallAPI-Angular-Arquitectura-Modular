@@ -1,0 +1,15 @@
+<div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control shadow text-center"
+      placeholder="Buscar Personaje"
+      [(ngModel)]="personajeName"
+      (keyup.enter)="searchPersonaje()"
+    />
+    <button class="btn btn-primary" type="button" (click)="searchPersonaje()">
+      <i class="bi bi-search"> Buscar </i>
+    </button>
+  </div>
+  
+
+  

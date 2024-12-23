@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPersonaje, Item} from 'src/app/core/IPersonaje.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,16 @@ export class RestServiceService {
 
   getPersonajeById(id:number):Observable<Item>{
     return this.httpClient.get<Item>(this.basePersonajeUrl + "/" + id)
+  }
+
+  //Buscador por nombre
+  getPersonajesByName(name: string): Observable<Item[]> {
+    return this.getAllPersonajes().pipe(
+      map((data) =>
+        data.items.filter((personaje) =>
+          personaje.name.toLowerCase().includes(name.toLowerCase())
+        )
+      )
+    );
   }
 }

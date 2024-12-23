@@ -5,25 +5,25 @@ import { CommonModule } from '@angular/common';
 import { PersonajesRoutingModule } from './personajes-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonDetailCardComponent } from './components/button-detail-card/button-detail-card.component';
-import { DetailPersonajeComponent } from './components/detail-personaje/detail-personaje.component';
-
+import { DetailPersonajeComponent } from './pages/detail-personaje/detail-personaje.component';
+import { SearcherComponent } from './components/searcher/searcher.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     PersonajesListComponent,
     PersonajeCardComponent,
     ButtonDetailCardComponent,
-    DetailPersonajeComponent
+    DetailPersonajeComponent,
+    SearcherComponent,
   ],
   imports: [
-    CommonModule,
-    PersonajesRoutingModule,
-    HttpClientModule
-
-  ]
-
+    CommonModule, 
+    PersonajesRoutingModule, 
+    HttpClientModule,
+    FormsModule],
 })
-export class PersonajesModule { }
+export class PersonajesModule {}
 /*Aquí se centraliza los componentes, páginas y rutas relacionadas con "Personajes"
 
  Relación: Este módulo importa el archivo PersonajesRoutingModule, que contiene las rutas específicas de "Personajes". 
