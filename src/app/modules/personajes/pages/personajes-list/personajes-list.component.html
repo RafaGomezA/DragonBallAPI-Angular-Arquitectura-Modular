@@ -13,5 +13,25 @@
         class="col-12 col-sm-6 col-md-4 col-lg-3 m-5"
       ></app-personaje-card>
     </div>
+
+      <!-- Controles de paginación -->
+  <div class="text-center mt-4" *ngIf="!isSearchMode">
+      <button
+        class="btn btn-secondary"
+        [disabled]="currentPage === 1"
+        (click)="cargarLista(currentPage - 1)"
+      >
+        Anterior
+      </button>
+      <span class="mx-3">Página {{ currentPage }} de {{ meta.totalPages }}</span>
+      <button
+        class="btn btn-secondary"
+        [disabled]="currentPage === meta.totalPages"
+        (click)="cargarLista(currentPage + 1)"
+      >
+        Siguiente
+      </button>
+  </div>
+    
   </div>
 

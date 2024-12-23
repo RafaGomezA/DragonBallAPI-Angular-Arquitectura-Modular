@@ -31,4 +31,10 @@ export class RestServiceService {
       )
     );
   }
+
+  //Paginación
+  public getPersonajesPaginados(page: number): Observable<IPersonaje> {
+    const url = this.basePersonajeUrl+`?page=${page}`;
+    return this.httpClient.get<IPersonaje>(url);
+  }
 }

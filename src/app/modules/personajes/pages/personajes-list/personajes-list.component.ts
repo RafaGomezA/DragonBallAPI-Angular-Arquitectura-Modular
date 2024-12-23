@@ -12,12 +12,16 @@ import { RestServiceService } from 'src/app/services/personajes/rest-service.ser
 export class PersonajesListComponent implements OnInit {
 
   public listaPersonajes: Item[] = []; // Almacena los personajes
+
+  public meta: any = {}; // Información meta de la API (totalPages, currentPage, etc.). Mirar la interface
+  public currentPage: number = 1; // Página actual
+  public isSearchMode: boolean = false; // Indica si estás en modo búsqueda para esconder o no la paginacion con un ngIf
   
 
   constructor(private restService: RestServiceService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.cargarLista();
+    this.cargarLista(this.currentPage);
 
     // Detectar si hay un parámetro 'name' en la URL
     this.activatedRoute.params.subscribe((params) => {
@@ -29,16 +33,24 @@ export class PersonajesListComponent implements OnInit {
   }
 
 
-  public cargarLista(): void {
-    this.restService.getAllPersonajes().subscribe((datos) => {
-      this.listaPersonajes = datos.items; // Extrae la lista de personajes desde `items`
-      console.log(this.listaPersonajes);
+  public cargarLista(page: number): void {
+    this.restService.getPersonajesPaginados(page).subscribe({
+      next: (datos) => {
+        this.listaPersonajes = datos.items; // Actualiza la lista con los personajes de la página actual
+
+        this.meta = datos.meta; // Actualiza la información meta (para saber el número de página). Mirar la interface
+        this.currentPage = this.meta.currentPage; // Actualiza la página actual
+      },
+      error: (error) => {
+        console.error('Error al cargar personajes:', error);
+      },
     });
   }
 
 
   //Buscar personaje
  public buscarPersonajes(name: string): void {
+  this.isSearchMode= true; //para que no salga la paginacion en la busqueda (ngIf)
   this.restService.getPersonajesByName(name).subscribe({
     next: (resultados) => {
       if (resultados.length > 0) {
@@ -55,7 +67,13 @@ export class PersonajesListComponent implements OnInit {
 }
   public limpiarBusqueda(): void {
     this.router.navigate(['/']);
-    this.cargarLista(); // Llama nuevamente al método que carga todos los personajes
+
+    this.currentPage = 1; // Restablecer a la primera página
+    this.cargarLista(this.currentPage); // Cargar la primera página
   }
+
+
+
+  
 
 }
