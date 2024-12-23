@@ -19,11 +19,15 @@ export class PersonajesListComponent implements OnInit {
   ngOnInit(): void {
     this.cargarLista();
 
-    const name = this.activatedRoute.snapshot.paramMap.get('name');
-    if(name){
-      this.buscarPersonajes(name);
-    }
+    // Detectar si hay un parámetro 'name' en la URL
+    this.activatedRoute.params.subscribe((params) => {
+      const name = params['name'];
+      if (name) {
+        this.buscarPersonajes(name);
+      }
+    });
   }
+
 
   public cargarLista(): void {
     this.restService.getAllPersonajes().subscribe((datos) => {
@@ -34,12 +38,21 @@ export class PersonajesListComponent implements OnInit {
 
 
   //Buscar personaje
-  public buscarPersonajes(name: string): void {
-    this.restService.getPersonajesByName(name).subscribe((resultados) => {
-      this.listaPersonajes = resultados; // Actualiza los resultados de la búsqueda
-    });
-  }
+ public buscarPersonajes(name: string): void {
+  this.restService.getPersonajesByName(name).subscribe({
+    next: (resultados) => {
+      if (resultados.length > 0) {
+        this.listaPersonajes = resultados; // Actualiza la lista si hay resultados
 
+      } else {
+        console.log(`No se encontraron personajes con el nombre "${name}".`);
+      }
+    },
+    error: (error) => {
+      console.error(`Error al buscar personajes con el nombre "${name}":`, error);
+    },
+  });
+}
   public limpiarBusqueda(): void {
     this.router.navigate(['/']);
     this.cargarLista(); // Llama nuevamente al método que carga todos los personajes
